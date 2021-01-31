@@ -20,6 +20,7 @@ hrgnl = length(allhrgn)
 imgsize = (63,64)
 batchsize = 30
 
+# ETLCDB http://etlcdb.db.aist.go.jp/specification-of-etl-9?lang=ja
 function gethrgndata(;dir="$(ENV["HOME"])/Downloads/ETL9B/", testlen = 20)
     etls = ETLCDBReader.getetl9b(dir)
     hrgnetls = filter(x -> x.charcode in allhrgn, etls)
@@ -61,6 +62,7 @@ function train(model, datas, labels, batchsize = 20)
     end
 end
 
+# init function
 function main(model = gpu(generatemodel()))
     train_x,train_y, test_x,test_y = gpu.(gethrgndata())
     train(model, train_x,train_y)
